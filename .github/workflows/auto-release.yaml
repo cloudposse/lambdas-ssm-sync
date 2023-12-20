@@ -16,7 +16,7 @@ jobs:
       # Drafts the next release's Release Notes as Pull Requests are merged into "main"
       - uses: release-drafter/release-drafter@v5
         with:
-          publish: ${{ !contains(steps.get-merged-pull-request.outputs.labels, 'no-release') }}
+          publish: false
           prerelease: false
           config-name: auto-release.yml
         env:
