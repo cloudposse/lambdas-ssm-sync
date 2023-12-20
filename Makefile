@@ -20,6 +20,7 @@ build-listener:
 	cd build/listener/ && zip listener-lambda.zip bootstrap
 
 deps:
+	go get lambda.norpc
 	go mod download
 
 # Run acceptance tests
