@@ -1,4 +1,4 @@
-name: build-and-test-feature-branch
+name: build-and-test
 on:
   pull_request:
     types:
@@ -40,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: listener-lambda.zip
-          path: build/listener-lambda.zip
+          path: build/listener/listener-lambda.zip
