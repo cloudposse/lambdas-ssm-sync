@@ -24,7 +24,8 @@ deps:
 	go mod download
 
 # Run acceptance tests
-testacc: deps
-	go test $(TEST) -v $(TESTARGS) -timeout 2m
+test: deps
+	go install github.com/jstemmer/go-junit-report@latest
+	go test $(TEST) -v $(TESTARGS) -timeout 10m | go-junit-report -set-exit-code > report.xml
 
 .PHONY: lint build-listener build-all deps version testacc

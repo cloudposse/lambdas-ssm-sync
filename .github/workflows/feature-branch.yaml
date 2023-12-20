@@ -17,12 +17,27 @@ jobs:
       - uses: actions/setup-go@v4
         with:
           go-version-file: "go.mod"
+
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
           version: latest
+
       - name: Build and Test
         run: |
           make deps
           make build-all
           make test
+
+      - name: Generate Test Summary
+        uses: test-summary/action@v2
+        with:
+          paths: report.xml
+        if: always()
+
+      - name: Upload Test Summary
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-summary
+          path: test-summary.md
+        if: always()
