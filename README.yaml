@@ -1,0 +1,29 @@
+name: atmos
+license: APACHE2
+github_repo: cloudposse/lambdas-ssm-sync
+
+badges:
+  - name: Latest Release
+    image: https://img.shields.io/github/release/cloudposse/lambdas-ssm-sync.svg
+    url: https://github.com/cloudposse/atmos/releases/latest
+  - name: Slack Community
+    image: https://slack.cloudposse.com/badge.svg
+    url: https://slack.cloudposse.com
+
+categories:
+  - automation
+  - cloud
+  - devops
+  - workflow
+  - terraform
+  - helm
+  - helmfile
+  - kubernetes
+  - aws
+
+description: AWS Lambda functions powering Cloud Posse's AWS SSM Parameter Store sync solution
+introduction: "TODO: update this"
+
+contributors:
+  - name: Matt Calhoun
+    github: mcalhoun
