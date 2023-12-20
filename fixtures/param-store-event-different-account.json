@@ -1,0 +1,18 @@
+{
+  "version": "0",
+  "id": "6a7e4feb-b491-4cf7-a9f1-bf3703497718",
+  "detail-type": "Parameter Store Change",
+  "source": "aws.ssm",
+  "account": "112233445566",
+  "time": "2017-05-22T16:43:48Z",
+  "region": "us-east-2",
+  "resources": [
+    "arn:aws:ssm:us-east-2:112233445566:parameter/terraform/shared-state/123456789012/us-east-2/MyExampleParameter"
+  ],
+  "detail": {
+    "operation": "Create",
+    "name": "MyExampleParameter",
+    "type": "String",
+    "description": "Sample Parameter"
+  }
+}
