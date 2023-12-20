@@ -16,8 +16,8 @@ lint:
 build-all: build-listener
 
 build-listener:
-	cd lambdas && GOOS=${GOOS} GOARCH=${GOARCH} CGO_ENABLED=0 go build -v -ldflags -o build/listener/bootstrap -tags lambda.norpc ./cmd/listener
-	cd lambdas/build/listener/ && zip listener-lambda.zip bootstrap
+	GOOS=${GOOS} GOARCH=${GOARCH} CGO_ENABLED=0 go build -v -ldflags -o build/listener/bootstrap -tags lambda.norpc ./cmd/listener
+	cd build/listener/ && zip listener-lambda.zip bootstrap
 
 deps:
 	go mod download
