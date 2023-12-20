@@ -16,11 +16,11 @@ lint:
 build-all: build-listener
 
 build-listener:
-	GOOS=${GOOS} GOARCH=${GOARCH} CGO_ENABLED=0 go build -v -ldflags -o build/listener/bootstrap -tags lambda.norpc ./cmd/listener
+	GOOS=${GOOS} GOARCH=${GOARCH} CGO_ENABLED=0 go build -v -o build/listener/bootstrap -tags lambda.norpc ./cmd/listener
 	cd build/listener/ && zip listener-lambda.zip bootstrap
 
 deps:
-	go get lambda.norpc
+	go get github.com/aws/aws-lambda-go/lambda
 	go mod download
 
 # Run acceptance tests
