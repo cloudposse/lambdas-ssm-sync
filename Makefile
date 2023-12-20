@@ -25,7 +25,6 @@ deps:
 
 # Run acceptance tests
 test: deps
-	go install github.com/jstemmer/go-junit-report@latest
-	go test $(TEST) -v $(TESTARGS) -timeout 10m | go-junit-report -set-exit-code > report.xml
+	go run gotest.tools/gotestsum@latest --junitfile unit-tests.xml --format pkgname-and-test-fails -- -timeout 30m -tags=acceptance -parallel=1 -count=1 -v $(TEST)
 
 .PHONY: lint build-listener build-all deps version testacc

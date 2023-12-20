@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   build:
@@ -29,16 +30,8 @@ jobs:
           make build-all
           make test
 
-      - name: Generate Test Summary
+      - name: Test Summary
         uses: test-summary/action@v2
         with:
-          paths: report.xml
-          output: test-summary.md
-        if: always()
-
-      - name: Upload Test Summary
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-summary
-          path: test-summary.md
+          paths: "unit-tests.xml"
         if: always()
