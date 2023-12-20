@@ -35,3 +35,9 @@ jobs:
         with:
           paths: "unit-tests.xml"
         if: always()
+
+      - name: Upload listener-lambda.zip
+        uses: actions/upload-artifact@v3
+        with:
+          name: listener-lambda.zip
+          path: build/listener-lambda.zip
