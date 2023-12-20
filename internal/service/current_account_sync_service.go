@@ -101,8 +101,13 @@ func (s *CurrentAccountSyncService) Sync(event model.ParameterStoreChangeEvent) 
 				fmt.Printf("Skipping update of %s in %s because the source of the change is the current region\n", event.Detail.Name, region)
 				continue
 			}
-			s.SSMService.SetRegion(region)
-			_, err := s.SSMService.SetParameter(event.Detail.Name, event.Detail.Type, event.Detail.Value)
+
+			err := s.SSMService.SetRegion(region)
+			if err != nil {
+				return err
+			}
+
+			_, err = s.SSMService.SetParameter(event.Detail.Name, event.Detail.Type, event.Detail.Value)
 			if err != nil {
 				return err
 			}

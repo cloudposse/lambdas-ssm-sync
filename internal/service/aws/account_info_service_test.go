@@ -6,7 +6,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/sts"
-	"github.com/cloudposse/ssm-syncronizer/internal/service/aws/awssvciface"
 	"github.com/cloudposse/ssm-syncronizer/internal/util"
 	"github.com/cloudposse/ssm-syncronizer/mocks"
 	"github.com/stretchr/testify/assert"
@@ -118,10 +117,6 @@ func getSTSClientMock() *mocks.STSClientMock {
 	return &mocks.STSClientMock{GetCallerIdentityOutout: sts.GetCallerIdentityOutput{
 		Account: aws.String("123456789012"),
 	}}
-}
-
-func getAWSSessionMock() awssvciface.AWSSession {
-	return *mocks.NewAWSSessionMock("us-east-1")
 }
 
 func TestGetEnabledRegions(t *testing.T) {
