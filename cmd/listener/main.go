@@ -28,7 +28,11 @@ func handler(context context.Context, event events.SQSEvent) ([]byte, error) {
 		if err != nil {
 			return nil, err
 		}
-		currentAccountSyncService.Sync(ssmEvent)
+
+		err = currentAccountSyncService.Sync(ssmEvent)
+		if err != nil {
+			return nil, err
+		}
 	}
 	return nil, nil
 }

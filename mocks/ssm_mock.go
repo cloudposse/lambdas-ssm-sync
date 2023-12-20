@@ -2,7 +2,6 @@ package mocks
 
 import (
 	"github.com/aws/aws-sdk-go/service/ssm"
-	"github.com/aws/aws-sdk-go/service/ssm/ssmiface"
 )
 
 type SetParameterCall struct {
@@ -12,7 +11,6 @@ type SetParameterCall struct {
 }
 
 type SSMServiceMock struct {
-	client             ssmiface.SSMAPI
 	PutParameterOutput ssm.PutParameterOutput
 	GetParameterOutput ssm.GetParameterOutput
 	SetParameterCalls  []SetParameterCall
