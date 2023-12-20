@@ -1,7 +1,7 @@
 TEST?=$$(go list ./... | grep -v 'vendor')
 SHELL := /bin/bash
 GOOS=linux
-GOARCH=amd64
+GOARCH=arm64
 VERSION=test
 
 # List of targets the `readme` target should call before generating the readme
@@ -13,21 +13,17 @@ export README_DEPS ?= docs/targets.md
 lint:
 	$(SELF) terraform/install terraform/get-modules terraform/get-plugins terraform/lint terraform/validate
 
-get:
-	go get
+build-all: build-listener
 
-build: get
-	env GOOS=${GOOS} GOARCH=${GOARCH} go build -o build/atmos -v -ldflags "-X 'github.com/cloudposse/atmos/cmd.Version=${VERSION}'"
-
-version: build
-	chmod +x ./build/atmos
-	./build/atmos version
+build-listener:
+	cd lambdas && GOOS=${GOOS} GOARCH=${GOARCH} CGO_ENABLED=0 go build -v -ldflags -o build/listener/bootstrap -tags lambda.norpc ./cmd/listener
+	cd lambdas/build/listener/ && zip listener-lambda.zip bootstrap
 
 deps:
 	go mod download
 
 # Run acceptance tests
-testacc: get
+testacc: deps
 	go test $(TEST) -v $(TESTARGS) -timeout 2m
 
-.PHONY: lint get build deps version testacc
+.PHONY: lint build-listener build-all deps version testacc
