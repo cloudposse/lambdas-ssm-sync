@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -43,8 +43,10 @@ jobs:
           paths: "unit-tests.xml"
         if: always()
 
-      - name: Upload listener-lambda.zip
-        uses: actions/upload-artifact@v4
+      - name: Run GoReleaser
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: goreleaser/goreleaser-action@v5
         with:
-          name: listener-lambda.zip
-          path: build/listener/listener-lambda.zip
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,15 @@
+builds:
+  - id: listener
+    main: ./cmd/listener
+    binary: listener/bootstrap
+      - -tags=lambda.norpc
+      - -v
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - arm64
+    hooks:
+      post: cd dist/listener && zip listener-lambda.zip bootstrap
+    no_unique_dist_dir: true
