@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/aws/aws-lambda-go v1.43.0
-	github.com/aws/aws-sdk-go v1.49.5
+	github.com/aws/aws-sdk-go v1.49.7
 	github.com/docker/docker v24.0.7+incompatible
 	github.com/golang/mock v1.6.0
 	github.com/magiconair/properties v1.8.7
