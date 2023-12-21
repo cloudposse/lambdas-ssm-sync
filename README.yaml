@@ -3,6 +3,9 @@ license: APACHE2
 github_repo: cloudposse/lambdas-ssm-sync
 
 badges:
+  - name: Test Status
+    image: https://github.com/cloudposse/lambdas-ssm-sync/actions/workflows/build-test.yaml/badge.svg?branch=main
+    url: https://github.com/cloudposse/lambdas-ssm-sync/actions/workflows/build-test.yaml
   - name: Latest Release
     image: https://img.shields.io/github/release/cloudposse/lambdas-ssm-sync.svg
     url: https://github.com/cloudposse/atmos/releases/latest

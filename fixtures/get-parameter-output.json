@@ -1,0 +1,11 @@
+{
+  "Parameter": {
+    "Name": "/terraform/shared-state/123456789012/us-east-2/MyExampleParameter",
+    "Type": "String",
+    "Value": "MyExampleParameterValue",
+    "Version": 1,
+    "LastModifiedDate": "2023-12-08T23:59:13.856000-05:00",
+    "ARN": "arn:aws:ssm:us-east-2:112233445566:parameter/terraform/shared-state/123456789012/us-east-2/MyExampleParameter",
+    "DataType": "text"
+  }
+}

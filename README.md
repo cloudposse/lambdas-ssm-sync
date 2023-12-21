@@ -1,6 +1,6 @@
 
 <!-- markdownlint-disable -->
-# atmos [![Latest Release](https://img.shields.io/github/release/cloudposse/lambdas-ssm-sync.svg)](https://github.com/cloudposse/atmos/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
+# atmos [![Test Status](https://github.com/cloudposse/lambdas-ssm-sync/actions/workflows/build-test.yaml/badge.svg?branch=main)](https://github.com/cloudposse/lambdas-ssm-sync/actions/workflows/build-test.yaml) [![Latest Release](https://img.shields.io/github/release/cloudposse/lambdas-ssm-sync.svg)](https://github.com/cloudposse/atmos/releases/latest) [![Slack Community](https://slack.cloudposse.com/badge.svg)](https://slack.cloudposse.com)
 <!-- markdownlint-restore -->
 
 [![README Header][readme_header_img]][readme_header_link]
