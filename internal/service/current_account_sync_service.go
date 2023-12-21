@@ -5,18 +5,21 @@ import (
 
 	"github.com/cloudposse/ssm-syncronizer/internal/model"
 	"github.com/cloudposse/ssm-syncronizer/internal/service/aws/awssvciface"
+	"github.com/cloudposse/ssm-syncronizer/internal/util"
 	awsutil "github.com/cloudposse/ssm-syncronizer/internal/util/aws"
 )
 
 type CurrentAccountSyncService struct {
 	AccountService awssvciface.AccountInfoService
 	SSMService     awssvciface.SSMService
+	SQSService     awssvciface.SQSService
 }
 
-func NewCurrentAccountSyncService(accountService awssvciface.AccountInfoService, ssmService awssvciface.SSMService) *CurrentAccountSyncService {
+func NewCurrentAccountSyncService(accountService awssvciface.AccountInfoService, ssmService awssvciface.SSMService, sqsService awssvciface.SQSService) *CurrentAccountSyncService {
 	return &CurrentAccountSyncService{
 		AccountService: accountService,
 		SSMService:     ssmService,
+		SQSService:     sqsService,
 	}
 }
 
@@ -77,6 +80,15 @@ func (s *CurrentAccountSyncService) isAllowedUpdate(currentAccount string, curre
 	return currentRegionChange, nil
 }
 
+func (s *CurrentAccountSyncService) SendEventToOrchestrator(event model.ParameterStoreChangeEvent) error {
+	message, err := util.Marshal(event)
+	if err != nil {
+		return err
+	}
+
+	return s.SQSService.SendMessage(string(message), event.Detail.Name)
+}
+
 func (s *CurrentAccountSyncService) Sync(event model.ParameterStoreChangeEvent) error {
 	eventWithValue, err := s.enrichEventWithParameterValue(&event)
 	if err != nil {
@@ -93,6 +105,8 @@ func (s *CurrentAccountSyncService) Sync(event model.ParameterStoreChangeEvent) 
 	if err != nil {
 		return err
 	}
+
+	sendToOrchestratorErr := s.SendEventToOrchestrator(eventWithValue)
 
 	for _, region := range details.EnabledRegions {
 		// If the event is from the current region, then we don't need to update it.
@@ -114,6 +128,12 @@ func (s *CurrentAccountSyncService) Sync(event model.ParameterStoreChangeEvent) 
 		} else {
 			fmt.Printf("Skipping update of %s in %s because it is not in the current region\n", event.Detail.Name, region)
 		}
+	}
+
+	// We want to give the local update priority over the remote update, so we send the event to the orchestrator and
+	// then return the error later after the local updates have had a chance to run.
+	if sendToOrchestratorErr != nil {
+		return sendToOrchestratorErr
 	}
 
 	return nil

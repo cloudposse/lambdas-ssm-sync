@@ -80,8 +80,9 @@ func TestCurrentAccountService_Sync(t *testing.T) {
 
 			accountSvc := &mocks.AccountServiceMock{GetAccountResponse: tt.currentAccount, GetRegionResponse: tt.currentRegion, GetEnabledRegionsResponse: enabledRegions}
 			ssmSvc := &mocks.SSMServiceMock{GetParameterOutput: parameterOutput}
+			sqsSvc := &mocks.SQSServiceMock{}
 
-			svc := &CurrentAccountSyncService{AccountService: accountSvc, SSMService: ssmSvc}
+			svc := &CurrentAccountSyncService{AccountService: accountSvc, SSMService: ssmSvc, SQSService: sqsSvc}
 
 			err = svc.Sync(event)
 			if (err != nil) != tt.expectError {

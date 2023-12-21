@@ -14,14 +14,21 @@ import (
 
 func handler(context context.Context, event events.SQSEvent) ([]byte, error) {
 
+	// Get Config
+	config, err := service.GetConfig()
+	if err != nil {
+		return nil, err
+	}
+
 	// Instantiate concrete dependencies
 	session := session.Must(session.NewSession())
 	ec2Client := awssvc.NewEC2Client(session)
 	stsClient := awssvc.NewSTSClient(session)
 	accountService := awssvc.NewAccountService(*session.Config.Region, ec2Client, stsClient)
-	ssmService := awssvc.NewSSMService()
+	ssmService := awssvc.NewSSMService(session)
+	sqsService := awssvc.NewSQSService(config.OrchestratorQueueURL, session)
 
-	currentAccountSyncService := service.NewCurrentAccountSyncService(accountService, ssmService)
+	currentAccountSyncService := service.NewCurrentAccountSyncService(accountService, ssmService, sqsService)
 
 	for _, record := range event.Records {
 		ssmEvent, err := awsutil.UnmarshalSQSEvent[model.ParameterStoreChangeEvent](record)
