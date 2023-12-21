@@ -2,6 +2,7 @@ builds:
   - id: listener
     main: ./cmd/listener
     binary: listener/bootstrap
+    flags:
       - -tags=lambda.norpc
       - -v
     env:
