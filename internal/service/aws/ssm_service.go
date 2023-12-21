@@ -12,9 +12,7 @@ type SSMService struct {
 	session *session.Session
 }
 
-func NewSSMService(cfgs ...*aws.Config) *SSMService {
-	session := session.Must(session.NewSession(cfgs...))
-
+func NewSSMService(session *session.Session, cfgs ...*aws.Config) *SSMService {
 	return &SSMService{
 		client:  ssm.New(session, cfgs...),
 		session: session,
