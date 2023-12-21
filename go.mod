@@ -9,7 +9,7 @@ require (
 	github.com/golang/mock v1.6.0
 	github.com/magiconair/properties v1.8.7
 	github.com/stretchr/testify v1.8.4
-	golang.org/x/sys v0.1.0
+	golang.org/x/sys v0.15.0
 )
 
 require (
