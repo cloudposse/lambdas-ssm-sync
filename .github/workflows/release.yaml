@@ -1,10 +1,8 @@
-name: build-and-test
+name: release
 on:
-  pull_request:
+  release:
     types:
-      - opened
-      - synchronize
-      - reopened
+      - published
   workflow_dispatch:
 
 permissions:
@@ -19,23 +17,6 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: "go.mod"
-
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: latest
-
-      - name: Build and Test
-        run: |
-          make deps
-          make build-all
-          make test
-
-      - name: Test Summary
-        uses: test-summary/action@v2
-        with:
-          paths: "unit-tests.xml"
-        if: always()
 
       - name: Run GoReleaser
         if: startsWith(github.ref, 'refs/tags/')

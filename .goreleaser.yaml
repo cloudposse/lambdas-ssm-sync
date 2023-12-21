@@ -11,5 +11,15 @@ builds:
     goarch:
       - arm64
     hooks:
-      post: cd dist/listener && zip listener-lambda.zip bootstrap
+      pre:
+        - go mod tidy
     no_unique_dist_dir: true
+
+archives:
+  - id: listener
+    builds:
+      - listener
+    format: zip
+    wrap_in_directory: false
+    strip_parent_binary_folder: true
+    name_template: listener-lambda
