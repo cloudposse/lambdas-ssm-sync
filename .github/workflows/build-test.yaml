@@ -37,7 +37,7 @@ jobs:
         if: always()
 
       - name: Upload listener-lambda.zip
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: listener-lambda.zip
           path: build/listener/listener-lambda.zip
