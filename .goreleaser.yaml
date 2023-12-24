@@ -16,6 +16,23 @@ builds:
         - go mod tidy
     no_unique_dist_dir: true
 
+  - id: orchestrator
+    main: ./cmd/orchestrator
+    binary: orchestrator/bootstrap
+    flags:
+      - -tags=lambda.norpc
+      - -v
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - arm64
+    hooks:
+      pre:
+        - go mod tidy
+    no_unique_dist_dir: true
+
 archives:
   - id: listener
     builds:
@@ -24,3 +41,11 @@ archives:
     wrap_in_directory: false
     strip_parent_binary_folder: true
     name_template: listener-lambda
+
+  - id: orchestrator
+    builds:
+      - orchestrator
+    format: zip
+    wrap_in_directory: false
+    strip_parent_binary_folder: true
+    name_template: orchestrator-lambda

@@ -13,11 +13,15 @@ export README_DEPS ?= docs/targets.md
 lint:
 	$(SELF) terraform/install terraform/get-modules terraform/get-plugins terraform/lint terraform/validate
 
-build-all: build-listener
+build-all: build-listener build-orchestrator
 
 build-listener:
 	GOOS=${GOOS} GOARCH=${GOARCH} CGO_ENABLED=0 go build -v -o build/listener/bootstrap -tags lambda.norpc ./cmd/listener
 	cd build/listener/ && zip listener-lambda.zip bootstrap
+
+build-orchestrator:
+	GOOS=${GOOS} GOARCH=${GOARCH} CGO_ENABLED=0 go build -v -o build/orchestrator/bootstrap -tags lambda.norpc ./cmd/orchestrator
+	cd build/orchestrator/ && zip orchestrator-lambda.zip bootstrap
 
 deps:
 	go get github.com/aws/aws-lambda-go/lambda
