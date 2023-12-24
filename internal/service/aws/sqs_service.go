@@ -32,3 +32,8 @@ func (s *SQSService) SendMessage(message string, messageGroupId string) error {
 
 	return nil
 }
+
+func (s *SQSService) SetQueueUrl(url string) error {
+	s.QueueUrl = url
+	return nil
+}

@@ -11,10 +11,11 @@ type SetParameterCall struct {
 }
 
 type SSMServiceMock struct {
-	PutParameterOutput ssm.PutParameterOutput
-	GetParameterOutput ssm.GetParameterOutput
-	SetParameterCalls  []SetParameterCall
-	SetRegionCalls     []string
+	PutParameterOutput             ssm.PutParameterOutput
+	GetParameterOutput             ssm.GetParameterOutput
+	GetParametersByPathPagesOutput []*ssm.Parameter
+	SetParameterCalls              []SetParameterCall
+	SetRegionCalls                 []string
 }
 
 func (m *SSMServiceMock) SetRegion(name string) error {
@@ -28,6 +29,10 @@ func (m *SSMServiceMock) DeleteParameter(name string) (*ssm.DeleteParameterOutpu
 
 func (m *SSMServiceMock) GetParameter(name string) (*ssm.GetParameterOutput, error) {
 	return &ssm.GetParameterOutput{}, nil
+}
+
+func (s *SSMServiceMock) GetParametersByPathPages(input *ssm.GetParametersByPathInput) ([]*ssm.Parameter, error) {
+	return s.GetParametersByPathPagesOutput, nil
 }
 
 func (m *SSMServiceMock) SetParameter(name string, paramType string, value string) (*ssm.PutParameterOutput, error) {
