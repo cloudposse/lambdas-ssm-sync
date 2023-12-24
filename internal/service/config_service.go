@@ -13,6 +13,12 @@ func GetConfig() (*model.Config, error) {
 		basePath = "/terraform"
 	}
 
+	configSubPath := os.Getenv("SSM_CONFIG_PATH")
+	if configSubPath == "" {
+		configSubPath = "config"
+	}
+	configPath := fmt.Sprintf("%s/%s", basePath, configSubPath)
+
 	sharedSubPath := os.Getenv("SSM_SHARED_PATH")
 	if sharedSubPath == "" {
 		sharedSubPath = "shared"
@@ -27,6 +33,7 @@ func GetConfig() (*model.Config, error) {
 
 	return &model.Config{
 		SSMBasePath:          basePath,
+		SSMConfigPath:        configPath,
 		SSMSharedPath:        sharedPath,
 		OrchestratorQueueURL: queueUrl,
 	}, nil

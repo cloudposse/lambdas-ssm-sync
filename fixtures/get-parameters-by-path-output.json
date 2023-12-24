@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "/terraform/config/listeners/us-east-2/123456789012",
+    "Type": "String",
+    "Value": "https://sqs.us-east-1.amazonaws.com/123456789012/mcal-core-use2-acct1-tf-ssm-sync-orchestrator.fifo",
+    "Version": 1,
+    "LastModifiedDate": "2023-12-08T23:59:13.856000-05:00",
+    "ARN": "arn:aws:ssm:us-east-2:112233445566:parameter/terraform/config/us-east-2/123456789012",
+    "DataType": "text"
+  },
+  {
+    "Name": "/terraform/config/listeners/us-east-2/112233445566",
+    "Type": "String",
+    "Value": "https://sqs.us-east-1.amazonaws.com/112233445566/mcal-core-use2-acct2-tf-ssm-sync-orchestrator.fifo",
+    "Version": 1,
+    "LastModifiedDate": "2023-12-08T23:59:13.856000-05:00",
+    "ARN": "arn:aws:ssm:us-east-2:112233445566:parameter/terraform/config/us-east-2/112233445566",
+    "DataType": "text"
+  }
+]
