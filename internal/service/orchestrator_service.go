@@ -70,7 +70,10 @@ func (s *OrchestratorService) sendToRemoteListener(account string, queue string,
 		return err
 	}
 
-	s.SQSService.SendMessage(string(message), event.Detail.Name)
+	err = s.SQSService.SendMessage(string(message), event.Detail.Name)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
