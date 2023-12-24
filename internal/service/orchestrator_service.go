@@ -65,7 +65,11 @@ func (s *OrchestratorService) sendToRemoteListener(account string, queue string,
 		return err
 	}
 
-	s.SQSService.SetQueueUrl(queue)
+	err = s.SQSService.SetQueueUrl(queue)
+	if err != nil {
+		return err
+	}
+
 	s.SQSService.SendMessage(string(message), event.Detail.Name)
 	return nil
 }
