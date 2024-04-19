@@ -50,6 +50,9 @@ archives:
     strip_parent_binary_folder: true
     name_template: orchestrator-lambda
 
+## Copied from https://github.com/cloudposse/.github/blob/main/.github/goreleaser.yml
+## Required to correct working go auto release workflow
+## ----- DO NOT CHANGE ----- ##
 release:
   draft: true
   replace_existing_draft: true
@@ -58,3 +61,4 @@ release:
   make_latest: false
   name_template: 'v{{.Tag}}'
   target_commitish: "{{ .Branch }}"
+## ----- DO NOT CHANGE ----- ##
