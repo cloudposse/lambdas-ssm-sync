@@ -5,6 +5,17 @@ on:
       - opened
       - synchronize
       - reopened
+
+  push:
+    branches:
+      - main
+      - release/v*
+    paths-ignore:
+      - '.github/**'
+      - 'docs/**'
+      - 'examples/**'
+      - 'test/**'
+
   workflow_dispatch:
 
 permissions:
@@ -37,10 +48,10 @@ jobs:
           paths: "unit-tests.xml"
         if: always()
 
-      - name: Run GoReleaser
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: goreleaser/goreleaser-action@v5
-        with:
-          args: release --clean
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release:
+    needs: build
+    if: github.event_name == 'push'
+    uses: cloudposse/.github/.github/workflows/shared-go-auto-release.yml@main
+    with:
+      publish: false
+    secrets: inherit

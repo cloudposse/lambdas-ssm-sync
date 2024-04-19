@@ -49,3 +49,12 @@ archives:
     wrap_in_directory: false
     strip_parent_binary_folder: true
     name_template: orchestrator-lambda
+
+release:
+  draft: true
+  replace_existing_draft: true
+  replace_existing_artifacts: true
+  mode: keep-existing
+  make_latest: false
+  name_template: 'v{{.Tag}}'
+  target_commitish: "{{ .Branch }}"
