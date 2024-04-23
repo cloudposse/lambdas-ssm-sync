@@ -1,5 +1,5 @@
 # Upstream changes from _extends are only recognized when modifications are made to this file in the default branch.
-extends: .github
+_extends: .github
 repository:
   name: lambdas-ssm-sync
   description: "The AWS Lambda functions that comprise Cloud Posse's AWS SSM Parameter Sync solution"
